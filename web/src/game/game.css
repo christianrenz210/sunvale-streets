@@ -1,0 +1,305 @@
+.sv-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.sv-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-family: 'Bebas Neue', Impact, 'Arial Narrow Bold', sans-serif;
+  color: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+}
+
+.sv-hud { position: absolute; inset: 0; }
+
+/* ---------- top right stats ---------- */
+.sv-topright {
+  position: absolute;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+.sv-clock { font-size: 30px; letter-spacing: 2px; line-height: 1; }
+.sv-weapon { display: flex; align-items: center; gap: 8px; }
+.sv-weapon-icon {
+  min-width: 74px;
+  padding: 4px 8px;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+}
+.sv-ammo { font-size: 22px; min-width: 30px; text-align: right; }
+.sv-bar {
+  width: 150px;
+  height: 11px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #000;
+  overflow: hidden;
+}
+.sv-bar i { display: block; height: 100%; transition: width 0.2s; }
+.sv-health i { background: linear-gradient(#ff6b6b, #c0392b); }
+.sv-health.low i { animation: sv-blink 0.5s steps(2) infinite; }
+.sv-armor i { background: linear-gradient(#e8f1ff, #8fb7ff); }
+.sv-money { font-size: 32px; color: #2ecc71; line-height: 1; letter-spacing: 1px; }
+.sv-stars { font-size: 24px; letter-spacing: 1px; line-height: 1; }
+.sv-stars span { color: rgba(0, 0, 0, 0.35); }
+.sv-stars span:first-child { display: none; }
+.sv-stars span.on { color: #ffd84d; }
+.sv-stars span.on.flash { animation: sv-blink 0.6s steps(2) infinite; }
+
+@keyframes sv-blink { 50% { opacity: 0.2; } }
+
+/* ---------- radar ---------- */
+.sv-radar-wrap {
+  position: absolute;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 4px solid rgba(0, 0, 0, 0.85);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}
+.sv-radar { width: 100%; height: 100%; display: block; }
+
+/* ---------- messages ---------- */
+.sv-help, .sv-objective {
+  position: absolute;
+  left: max(16px, env(safe-area-inset-left));
+  max-width: min(420px, 60vw);
+  padding: 10px 14px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.72);
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.sv-help { top: max(12px, env(safe-area-inset-top)); }
+.sv-objective { top: calc(max(12px, env(safe-area-inset-top)) + 0px); border-left: 4px solid #ffd84d; }
+.sv-help.show ~ .sv-objective.show { top: calc(max(12px, env(safe-area-inset-top)) + 84px); }
+.sv-help.show, .sv-objective.show { opacity: 1; transform: none; }
+.sv-help kbd, .sv-objective kbd {
+  display: inline-block;
+  padding: 0 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  font-size: 12px;
+  background: #222;
+}
+
+.sv-timer {
+  position: absolute;
+  top: 190px;
+  right: max(16px, env(safe-area-inset-right));
+  font-size: 34px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #000;
+  display: none;
+}
+.sv-timer.show { display: block; }
+.sv-timer.urgent { color: #ff5252; animation: sv-blink 0.5s steps(2) infinite; }
+
+.sv-big {
+  position: absolute;
+  top: 34%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(44px, 9vw, 96px);
+  letter-spacing: 3px;
+  text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+  opacity: 0;
+  transform: scale(1.4);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.sv-big small { display: block; font-size: 0.35em; color: #fff; letter-spacing: 2px; }
+.sv-big.show { opacity: 1; transform: none; }
+
+.sv-subtitle {
+  position: absolute;
+  left: 50%;
+  bottom: max(70px, calc(env(safe-area-inset-bottom) + 60px));
+  transform: translateX(-50%);
+  max-width: min(720px, 70vw);
+  text-align: center;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px #000, 0 0 6px #000;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.sv-subtitle b { color: #ffd84d; }
+.sv-subtitle.show { opacity: 1; }
+
+.sv-area, .sv-vehname {
+  position: absolute;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(28px, env(safe-area-inset-bottom));
+  font-size: 38px;
+  letter-spacing: 2px;
+  text-align: right;
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.sv-vehname { bottom: max(76px, calc(env(safe-area-inset-bottom) + 60px)); color: #9fd3ff; font-size: 30px; }
+.sv-vehname small { display: block; font-size: 18px; color: #ff8080; }
+.sv-area.show, .sv-vehname.show { opacity: 1; }
+
+.sv-crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 0 2px #000;
+  display: none;
+}
+.sv-crosshair::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+}
+.sv-crosshair.show { display: block; }
+.sv-crosshair.locked { border-color: #ff4040; }
+
+.sv-damage {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 120px rgba(200, 0, 0, 0.85);
+  opacity: 0;
+}
+.sv-damage.hit { animation: sv-hit 0.45s ease-out; }
+@keyframes sv-hit { from { opacity: 1; } to { opacity: 0; } }
+
+.sv-fps {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: monospace;
+  font-size: 12px;
+  color: #0f0;
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* ---------- touch controls ---------- */
+.sv-touch { position: absolute; inset: 0; pointer-events: none; }
+.sv-joy-zone {
+  position: absolute;
+  left: 0;
+  top: 25%;
+  width: 40%;
+  bottom: 0;
+  pointer-events: auto;
+  touch-action: none;
+}
+.sv-look-zone {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60%;
+  bottom: 0;
+  pointer-events: auto;
+  touch-action: none;
+}
+.sv-joy-base {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  display: none;
+}
+.sv-joy-knob {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+.sv-btns {
+  position: absolute;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  width: 230px;
+  height: 230px;
+}
+.sv-btn {
+  position: absolute;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+  pointer-events: auto;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.sv-btn.on { background: rgba(255, 255, 255, 0.35); }
+.sv-btn-big { width: 84px; height: 84px; right: 0; bottom: 0; font-size: 18px; }
+.sv-btn-red { border-color: rgba(255, 90, 90, 0.9); }
+.sv-btn-yellow { border-color: rgba(255, 216, 77, 0.95); }
+.sv-btns [data-a='jump'] { right: 98px; bottom: 6px; }
+.sv-btns [data-a='sprint'] { right: 10px; bottom: 98px; }
+.sv-btns [data-a='enter'] { right: 86px; bottom: 86px; }
+.sv-btns [data-a='weapon'] { right: 160px; bottom: 60px; }
+.sv-btns [data-a='radio'] { right: 70px; bottom: 165px; }
+.sv-btn-small { width: 50px; height: 50px; font-size: 13px; }
+.sv-btn-pause {
+  top: max(12px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+}
+
+/* the touch UI moves some HUD pieces out of the way of the buttons */
+.sv-is-touch .sv-area { bottom: auto; top: 42%; right: 50%; transform: translateX(50%); text-align: center; }
+.sv-is-touch .sv-vehname { bottom: auto; top: 30%; right: 50%; transform: translateX(50%); text-align: center; }
+.sv-is-touch .sv-subtitle { bottom: 40%; }
+.sv-is-touch .sv-help, .sv-is-touch .sv-objective { max-width: calc(50vw - 56px); font-size: 13px; }
+
+@media (max-height: 480px) {
+  .sv-radar-wrap { width: 120px; height: 120px; }
+  .sv-clock { font-size: 24px; }
+  .sv-money { font-size: 26px; }
+  .sv-bar { width: 120px; }
+  .sv-area { font-size: 28px; }
+  .sv-big { top: 26%; }
+}

@@ -1,0 +1,11 @@
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+*.keystore
+*.jks
+# filled from web/dist at build time
+app/src/main/assets/www/*
+!app/src/main/assets/www/.gitkeep

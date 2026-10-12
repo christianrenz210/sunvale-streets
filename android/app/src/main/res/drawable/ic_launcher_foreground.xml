@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- sunset -->
+    <path android:fillColor="#FF4F8B" android:pathData="M18,58a36,36 0,0 1,72 0z" />
+    <path android:fillColor="#FFD36E" android:pathData="M28,58a26,26 0,0 1,52 0z" />
+    <path android:fillColor="#FF4F8B" android:pathData="M28,50h52v2h-52zM28,54h52v2h-52z" />
+    <!-- skyline -->
+    <path android:fillColor="#160B26"
+        android:pathData="M18,86V60h7v-6h6v10h5V48h8v16h4v-9h6v12h5V44h8v20h4v-8h7v10h4V58h6v28z" />
+    <!-- palm -->
+    <path android:fillColor="#160B26"
+        android:pathData="M70,86c-1,-12 0,-22 3,-31l1.5,0.4c-2.5,9 -3.2,19 -2.5,30.6zM74,55c-6,-4 -12,-3 -16,0c5,-1 11,-1 16,0zM74,55c5,-5 11,-5 14,-2c-5,-1 -10,0 -14,2zM74,55c-2,-6 -7,-9 -12,-9c5,2 9,5 12,9zM74,55c3,-6 8,-8 13,-7c-5,1 -9,4 -13,7z" />
+</vector>
